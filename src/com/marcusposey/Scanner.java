@@ -1,7 +1,6 @@
 package com.marcusposey;
 
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ContentIterator;
 import com.intellij.openapi.roots.ProjectFileIndex;
 import com.intellij.openapi.vfs.VirtualFile;
 
@@ -19,10 +18,16 @@ public class Scanner {
 
     /** Scans all files in the project directory */
     public void scan() {
-        // Todo: Let the user choose which extensions to search.
         ProjectFileIndex.SERVICE
                 .getInstance(project)
-                .iterateContent(new ProjectFileIterator(this));
+                //.iterateContent(new ProjectFileIterator(this));
+                .iterateContent(file -> {
+                    if (!file.isDirectory()) {
+                        // Todo: Match against extensions.
+                        storeTodos(file);
+                    }
+                    return true;
+                });
     }
 
     private void storeTodos(VirtualFile file) {
@@ -32,20 +37,5 @@ public class Scanner {
 
     public Map<String, VirtualFile> getFiles() {
         return files;
-    }
-
-    private class ProjectFileIterator implements ContentIterator {
-        private Scanner scanner;
-
-        public ProjectFileIterator(Scanner scanner) {
-            this.scanner = scanner;
-        }
-
-        public boolean processFile(VirtualFile virtualFile) {
-            if (!virtualFile.isDirectory()) {
-                scanner.storeTodos(virtualFile);
-            }
-            return true;
-        }
     }
 }
