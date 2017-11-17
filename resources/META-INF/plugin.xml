@@ -1,5 +1,5 @@
 <idea-plugin>
-  <id>com.marcusposey</id>
+  <id>com.marcusposey.todotracker</id>
   <name>Todo Tracker</name>
   <version>1.0</version>
   <vendor email="contact@marcusposey.com" url="https://github.com/mlposey">Marcus Posey</vendor>
