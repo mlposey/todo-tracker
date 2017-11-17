@@ -26,10 +26,12 @@ public class SyncAction extends AnAction {
             Messages.showMessageDialog(project,
                     "Could not find a repository named " + project.getName(),
                     "Error", Messages.getErrorIcon());
+            return;
         } catch (IOException e) {
             Messages.showMessageDialog(project,
                     "Could not authenticate GitHub user", "Error",
                     Messages.getErrorIcon());
+            return;
         }
 
         Scanner scanner = new Scanner(project);
