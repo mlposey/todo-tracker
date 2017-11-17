@@ -2,7 +2,7 @@
   <id>com.marcusposey.todotracker</id>
   <name>Todo Tracker</name>
   <version>1.0</version>
-  <vendor email="contact@marcusposey.com" url="https://github.com/mlposey">Marcus Posey</vendor>
+  <vendor email="contact@marcusposey.com" url="https://github.com/mlposey/todo-tracker">Marcus Posey</vendor>
 
   <description><![CDATA[
       Todo Tracker finds todo comments in source code and
