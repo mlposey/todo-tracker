@@ -7,8 +7,10 @@ import org.jetbrains.annotations.Nullable;
 public class Todo {
     @Nullable
     public final String creator;
+
     @NotNull
     public final String title;
+
     @Nullable
     public final String body;
 
