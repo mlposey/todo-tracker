@@ -34,4 +34,17 @@ public class ScannerTest extends LightPlatformCodeInsightFixtureTestCase {
 
         Assert.assertEquals(todoCount, todos.size());
     }
+
+    /** Scanner.scan should parse the body of a todo if it exists */
+    public void testScan_retrievesBody() {
+        myFixture.configureByFile("body.go");
+        final String expectedBody = "You can do it! :D\n" +
+                "Believe in the belief to believe!";
+
+        Scanner scanner = new Scanner(myFixture.getProject());
+        List<Todo> todos = scanner.scan();
+
+        Assert.assertEquals(1, todos.size());
+        Assert.assertEquals(expectedBody, todos.get(0).body);
+    }
 }
