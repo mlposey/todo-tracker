@@ -4,4 +4,21 @@
 </a>  
 
 This plugin tracks todo comments in an IntelliJ IDEA project. It currently
-supports the `.go` extension and submitting todos as GitHub issues.
+supports Go, Java, and C++ file extensions, as well as the ability to
+submit todos as GitHub issues.
+
+## GitHub Issues
+In order to submit todo blocks as GitHub issues, the following must hold:  
+1. The project contains a Git repository with a GitHub remote.
+2. The GitHub account has pull access to the remote.
+3. The todo block contains an author tag that matches the GitHub account in use.
+
+Assuming 1, 2, and an account `user`, these two styles will result in successful
+issues:
+
+// TODO(user): The issue title.
+
+// TODO(user): The issue title.  
+// The body of the  
+// issue goes here.
+

@@ -11,7 +11,12 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/** Scanner searches project files for todo items */
+/**
+ * Scanner searches project files for todo items
+ *
+ * It supports the following extensions:
+ *      go, java, cpp, cc, h, hpp
+ */
 public class Scanner {
     private final Project project;
     // The scanner only touches files with these extensions.
@@ -25,10 +30,10 @@ public class Scanner {
     // Group 2 [required] = title
     private final Pattern header = Pattern.compile("// TODO(.*)?: (.*)");
 
-    /** Creates a new Scanner that scans Go files */
+    /** Creates a new Scanner attached to a project's files */
     public Scanner(@NotNull Project project) {
         this.project = project;
-        exts.add("go");
+        exts.addAll(Arrays.asList("go", "java", "cpp", "h", "hpp", "cc"));
     }
 
     /**
