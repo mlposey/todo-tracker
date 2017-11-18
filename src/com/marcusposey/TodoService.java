@@ -76,7 +76,9 @@ public class TodoService {
     /** Submits the todo as a new issue to the project repository */
     private void submitNewIssue(@NotNull Todo todo) {
         try {
-            conn.postRequest(issuesPostUri, gson.toJson(todo));
+            if (todo.author != null && todo.author.equals(userAndRepo.getUser())) {
+                conn.postRequest(issuesPostUri, gson.toJson(todo));
+            }
         } catch (IOException e) {
             Messages.showMessageDialog(project, "Could not post issue:\n" +
                 gson.toJson(todo), "Error", Messages.getErrorIcon());
