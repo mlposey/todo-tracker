@@ -18,10 +18,10 @@ public class SyncAction extends AnAction {
     @Override
     public void actionPerformed(AnActionEvent event) {
         Project project = event.getProject();
-        TodoService service = null;
+        IssueService service = null;
 
         try {
-            service = new TodoService(project);
+            service = new GitHubIssueService(project);
         } catch (MissingRepoException exception) {
             Messages.showMessageDialog(project,
                     "Could not find a repository named " + project.getName(),

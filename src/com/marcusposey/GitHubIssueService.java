@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.util.*;
 
 
-/** TodoServer pushes todo comments to GitHub as issues. */
-public class TodoService {
+/** GitHubIssueService pushes todo comments to GitHub as issues. */
+public class GitHubIssueService implements IssueService {
     private final Project project;
 
     // A URI to the issues POST endpoint
@@ -35,8 +35,8 @@ public class TodoService {
      *                              the current project
      * @throws IOException if GitHub authorization cannot be granted
      */
-    public TodoService(@NotNull Project project) throws MissingRepoException,
-            IOException {
+    public GitHubIssueService(@NotNull Project project) throws
+            MissingRepoException, IOException {
         GithubAuthDataHolder authDataHolder = GithubUtil
                 .computeValueInModalIO(project, "Access to GitHub", indicator ->
                     GithubUtil.getValidAuthDataHolderFromConfig(project,
@@ -55,10 +55,15 @@ public class TodoService {
     /**
      * Pushes todos to the project repository as issues
      *
+     * If a todo does not have an author tag or the author tag does not
+     * match the current GitHub user, it will not be sent to the server.
+     *
      * If a todo has the same title as an existing issue's title, it will
      * not be uploaded to the repository.
+     *
      * @throws IOException if authentication fails
      */
+    @Override
     public void push(@NotNull List<Todo> todos) throws IOException {
         List<GithubIssue> issues = GithubApiUtil.getIssuesAssigned(conn,
                 userAndRepo.getUser(), userAndRepo.getRepository(), "",
