@@ -23,8 +23,12 @@ public class GitHubIssueService implements IssueService {
     // A URI to the issues POST endpoint
     private String issuesPostUri;
 
-    private GithubFullPath userAndRepo;
     private final GithubConnection conn;
+
+    // A full path to the GitHub remote
+    private GithubFullPath ownerAndRepo;
+    // The GitHub login of the current user of this plugin
+    private final String currentUser;
 
     private Gson gson = new Gson();
 
@@ -42,7 +46,9 @@ public class GitHubIssueService implements IssueService {
                     GithubUtil.getValidAuthDataHolderFromConfig(project,
                             AuthLevel.LOGGED, indicator)
         );
+
         conn = new GithubConnection(authDataHolder.getAuthData(), true);
+        currentUser = GithubApiUtil.getCurrentUser(conn).getLogin();
 
         GitRepository repo = GitUtil.getRepositoryManager(project)
                 .getRepositoryForFile(project.getProjectFile());
@@ -66,7 +72,7 @@ public class GitHubIssueService implements IssueService {
     @Override
     public void push(@NotNull List<Todo> todos) throws IOException {
         List<GithubIssue> issues = GithubApiUtil.getIssuesAssigned(conn,
-                userAndRepo.getUser(), userAndRepo.getRepository(), "",
+                ownerAndRepo.getUser(), ownerAndRepo.getRepository(), "",
                 Integer.MAX_VALUE, false);
 
         Set<String> issueTitles = new HashSet<>();
@@ -81,7 +87,7 @@ public class GitHubIssueService implements IssueService {
     /** Submits the todo as a new issue to the project repository */
     private void submitNewIssue(@NotNull Todo todo) {
         try {
-            if (todo.author != null && todo.author.equals(userAndRepo.getUser())) {
+            if (todo.author != null && todo.author.equals(currentUser)) {
                 conn.postRequest(issuesPostUri, gson.toJson(todo));
             }
         } catch (IOException e) {
@@ -95,12 +101,12 @@ public class GitHubIssueService implements IssueService {
         String url = GithubUtil.findGithubRemoteUrl(repo);
         if (url == null) throw new IOException("Cannot find remote url");
 
-        userAndRepo = GithubUrlUtil.getUserAndRepositoryFromRemoteUrl(url);
-        if (userAndRepo == null) {
+        ownerAndRepo = GithubUrlUtil.getUserAndRepositoryFromRemoteUrl(url);
+        if (ownerAndRepo == null) {
             throw new IOException("Missing user or repository at remote URL");
         }
 
-        issuesPostUri = "/repos/" + userAndRepo.getUser() + '/' +
-                userAndRepo.getRepository() + "/issues";
+        issuesPostUri = "/repos/" + ownerAndRepo.getUser() + '/' +
+                ownerAndRepo.getRepository() + "/issues";
     }
 }
