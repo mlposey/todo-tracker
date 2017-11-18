@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>com.marcusposey.todotracker</id>
   <name>Todo Tracker</name>
-  <version>1.0</version>
+  <version>1.0-beta</version>
   <vendor email="contact@marcusposey.com" url="https://github.com/mlposey/todo-tracker">Marcus Posey</vendor>
 
   <description><![CDATA[
@@ -10,8 +10,7 @@
     ]]></description>
 
   <change-notes><![CDATA[
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>
+      This beta release sets initial support for GitHub issues.
     ]]>
   </change-notes>
 

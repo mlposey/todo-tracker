@@ -3,4 +3,5 @@
 <img src="http://teamcity.marcusposey.com/app/rest/builds/buildType:(id:TodoTracker_Build)/statusIcon"/>
 </a>  
 
-This plugin tracks todo comments in an IntelliJ IDEA project.
+This plugin tracks todo comments in an IntelliJ IDEA project. It currently
+supports the `.go` extension and submitting todos as GitHub issues.
