@@ -74,10 +74,7 @@ public class Scanner {
         StringBuilder body = new StringBuilder();
 
         for (String line : lines) {
-            // Remove initial indentation.
-            while (line.startsWith(" ") || line.startsWith("\t")) {
-                line = line.substring(1);
-            }
+            line = removeIndentation(line);
 
             if (!line.startsWith("//")) {
                 if (title != null) { // The todo definition is finished.
@@ -128,5 +125,17 @@ public class Scanner {
         int len = val.length();
         if (val.charAt(len - 1) == '\n') return val.substring(0, len - 1);
         return val.toString();
+    }
+
+    /**
+     * Removes the preceding indentation of a string
+     * @param val text which may be preceded by spaces or tabs
+     */
+    private String removeIndentation(@NotNull String val) {
+        if (val.isEmpty()) return val;
+
+        int start = 0;
+        while (val.charAt(start) == ' ' || val.charAt(start) == '\t') start++;
+        return val.substring(start);
     }
 }
