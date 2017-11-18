@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 /** An IssueService submits todos as issues to some remote service. */
+@FunctionalInterface
 public interface IssueService {
     /**
      * @throws IOException when a network error is encountered
