@@ -16,9 +16,10 @@ In order to submit todo blocks as GitHub issues, the following must hold:
 Assuming 1, 2, and an account `user`, these two styles will result in successful
 issues:
 
+```
 // TODO(user): The issue title.
 
 // TODO(user): The issue title.  
 // The body of the  
 // issue goes here.
-
+```
