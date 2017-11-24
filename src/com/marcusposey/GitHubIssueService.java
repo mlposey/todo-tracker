@@ -51,7 +51,8 @@ public class GitHubIssueService implements IssueService {
         currentUser = GithubApiUtil.getCurrentUser(conn).getLogin();
 
         GitRepository repo = GitUtil.getRepositoryManager(project)
-                .getRepositoryForFile(project.getProjectFile());
+                .getRepositoryForRoot(project.getBaseDir());
+
         if (repo == null) throw new MissingRepoException();
 
         this.project = project;

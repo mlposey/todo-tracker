@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>com.marcusposey.todotracker</id>
   <name>Todo Tracker</name>
-  <version>1.0-beta</version>
+  <version>1.0.1-beta</version>
   <vendor email="contact@marcusposey.com" url="https://github.com/mlposey/todo-tracker">Marcus Posey</vendor>
 
   <description><![CDATA[
@@ -10,7 +10,7 @@
     ]]></description>
 
   <change-notes><![CDATA[
-      This beta release sets initial support for GitHub issues.
+      * Fixes potential issue when finding Git root
     ]]>
   </change-notes>
 
